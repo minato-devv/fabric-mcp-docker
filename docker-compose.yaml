@@ -5,7 +5,18 @@ services:
         volumes:
             - ${HOME}/.fabric-config:/home/appuser/.config/fabric
         image: kayvan/fabric:latest
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.1'
+                    memory: 128M
+                reservations:
+                    cpus: '0.05'
+                    memory: 64M
         command: --serve --address 0.0.0.0:8080
+        restart_policy:
+            condition: on-failure
+            max_attempts: 3
     fabric-mcp:
         container_name: fabric-mcp
         ports:
@@ -15,4 +26,14 @@ services:
         environment:
             - FABRIC_BASE_URL=http://fabric:8080
         image: honeylavender7435/fabric-mcp:v1
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.2'
+                    memory: 256M
+                reservations:
+                    cpus: '0.1'
+                    memory: 128M
         command: --transport http --host 0.0.0.0 --port 8000
+        restart_policy:
+            condition: unless-stopped
