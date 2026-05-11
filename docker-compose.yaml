@@ -13,10 +13,10 @@ services:
                 reservations:
                     cpus: '0.05'
                     memory: 64M
+            restart_policy:
+                condition: on-failure
+                max_attempts: 3
         command: --serve --address 0.0.0.0:8080
-        restart_policy:
-            condition: on-failure
-            max_attempts: 3
     fabric-mcp:
         container_name: fabric-mcp
         ports:
@@ -34,6 +34,6 @@ services:
                 reservations:
                     cpus: '0.1'
                     memory: 128M
+            restart_policy:
+                condition: unless-stopped
         command: --transport http --host 0.0.0.0 --port 8000
-        restart_policy:
-            condition: unless-stopped
