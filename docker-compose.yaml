@@ -25,7 +25,7 @@ services:
         ports:
             - 127.0.0.1:8000:8000
         volumes:
-            - ${HOME}/.fabric-config:/home/appuser/.config/fabric:ro
+            - ${HOME}/.config/fabric:/home/appuser/.config/fabric:ro
         environment:
             - FABRIC_BASE_URL=http://fabric:8080
         image: honeylavender7435/fabric-mcp:v1
