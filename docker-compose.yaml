@@ -7,8 +7,8 @@ services:
         mem_limit: 128m
         read_only: true
         volumes:
-          - ${HOME}/.fabric-config:/home/appuser/.config/fabric:ro
-        image: kayvan/fabric@sha256:ec84f10869299b927543650273976c5f4f7154fc8a06958348c333bd437f2cae
+          - ${HOME}/.config/fabric:/home/appuser/.config/fabric:ro
+        image: kayvan/fabric:latest
         command: --serve --address 0.0.0.0:8080
         healthcheck:
             test: wget -O - http://localhost:8080/strategies || exit 1
@@ -28,7 +28,7 @@ services:
             - ${HOME}/.fabric-config:/home/appuser/.config/fabric:ro
         environment:
             - FABRIC_BASE_URL=http://fabric:8080
-        image: honeylavender7435/fabric-mcp@sha256:e129d0e572ddc12d54ee354485e7cd5e63f0c799bb6f20ecab82ffe4ede9a72a
+        image: honeylavender7435/fabric-mcp:v1
         depends_on:
             - fabric
         command: --transport http --host 0.0.0.0 --port 8000
